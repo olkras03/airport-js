@@ -7,13 +7,16 @@ describe("Airport", function() {
     airport = new Airport();
     plane = jasmine.createSpy("plane", ["land"]);
   });
+
   it("has no planes by default", function() {
     expect(airport.planes()).toEqual([]);
   });
+
   it("can clear planes for landing", function() {
     airport.clearForLanding(plane);
     expect(airport.planes()).toEqual([plane]);
   });
+
   it("can clear planes for takeoff", function() {
     airport.clearForLanding(plane);
     airport.clearForTakeOff(plane);
@@ -21,6 +24,13 @@ describe("Airport", function() {
   });
 
   it("can check for stromy conditions", function() {
-expect(airport.isStormy()).toBeFalsy();
+    expect(airport.isStormy()).toBeFalsy();
+  });
+
+  describe('under stormy conditions', function() {
+it('does not clear the planes for takeoff', function() {
+  spyOn(airport, 'isStormy').and.returnValue(true);
+  expect(function() { airport.clearForTakeOff(plane);}).toThrowError('cannot takeoff during storm');
+})
   });
 });
