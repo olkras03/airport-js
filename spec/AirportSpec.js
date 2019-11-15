@@ -27,10 +27,12 @@ describe("Airport", function() {
     expect(airport.isStormy()).toBeFalsy();
   });
 
-  describe('under stormy conditions', function() {
-it('does not clear the planes for takeoff', function() {
-  spyOn(airport, 'isStormy').and.returnValue(true);
-  expect(function() { airport.clearForTakeOff(plane);}).toThrowError('cannot takeoff during storm');
-})
+  describe("under stormy conditions", function() {
+    it("does not clear the planes for takeoff", function() {
+      spyOn(airport, "isStormy").and.returnValue(true);
+      expect(function() {
+        airport.clearForTakeOff(plane);
+      }).toThrowError("cannot takeoff during storm");
+    });
   });
 });
